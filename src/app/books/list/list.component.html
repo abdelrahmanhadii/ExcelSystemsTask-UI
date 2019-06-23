@@ -1,0 +1,65 @@
+<button #t (click)="createBtn(t)" class="btn btn-success a" >New</button>
+<div class="card container example-container" [hidden] = "!createBool">
+    
+  <table class="table table-responsive-md table-striped">
+    <thead >
+      <tr>
+        <td>
+          <span><strong>Name</strong></span>
+        </td>
+        <td>
+            <span><strong>Description</strong></span>
+        </td>
+        <td>
+          <span><strong>Author</strong></span>
+        </td>
+        <td>
+          <span><strong>Price</strong></span>
+        </td>
+        <td>
+          <span><strong>Published Date</strong></span>
+        </td>
+        <td>
+          <span><strong></strong></span>
+        </td>
+        <td>
+          <span><strong></strong></span>
+        </td>
+      </tr>
+    </thead>
+    <tbody class="tableFixHead">
+      <tr *ngFor="let book of bookList">
+        <td>
+            <span [hidden]="book.edit">{{book.name}}</span>
+            <input #n class="form-control" type="text" [value] = "book.name" [hidden]="!book.edit">
+        </td>
+        <td>
+            <span [hidden]="book.edit">{{book.description}}</span>
+            <input #desc class="form-control" type="text" [value] = "book.description" [hidden]="!book.edit">
+        </td>
+        <td>
+            <span [hidden]="book.edit">{{book.author}}</span>
+            <input #a class="form-control" type="text" [value] = "book.author" [hidden]="!book.edit">
+        </td>
+        <td>
+            <span [hidden]="book.edit">{{book.price}}</span>
+            <input #a class="form-control" type="text" [value] = "book.price" [hidden]="!book.edit">
+        </td>
+        <td>
+            <span [hidden]="book.edit">{{book.publishingDate | date:'yyyy-MM-dd'}}</span>
+            <input #date class="form-control" type="date" [value]="book.publishingDate | date:'yyyy-MM-dd'" [hidden]= "!book.edit">
+        </td>
+        <td>
+          <button #t class="btn btn-secondary" (click)="editEnable(book, t)">Edit</button>
+          <button class="btn btn-success" (click)="save({id:book.id, name:n.value, description:desc.value, author:a.value, publishingDate:date.value})" [hidden]= "!book.edit">Save</button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="delete(book.id)" [value]="book.id">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<app-new class="creat-form" [hidden] = "createBool"></app-new>
